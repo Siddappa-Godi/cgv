@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<GL/glut.h>
+float t[3][3]={{100,100,1},{500,100,1},{300,500,1}};
+float h,k,theta;
+void drawtriangle()
+{
+	glBegin(GL_LINE_LOOP);
+	glVertex2fv(t[0]);
+	glVertex2fv(t[1]);
+	glVertex2fv(t[2]);
+	glEnd();
+}
+
+void display()
+{
+
+	drawtriangle();
+	glTranslatef(h,k,0);
+	glRotatef(theta,0,0,1);
+	glTranslatef(-h,-k,0);
+	drawtriangle();
+	glFlush();
+}
+void init()
+{
+    glClearColor(0.0,0.0,0.0,0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	gluOrtho2D(0,999,0,999);
+
+}
+int main(int argc,char** argv)
+{
+    printf("enter the fixed point of rotation");
+	scanf("%f",&h);
+	printf("enter the fixed point of rotation");
+	scanf("%f",&k);
+	printf("Enter the rotation angle.\n");
+	scanf("%f",&theta);
+
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE);
+	glutInitWindowSize(500,500);
+	glutCreateWindow("Triangle rotation");
+	glutDisplayFunc(display);
+	init();
+	glutMainLoop();
+}
+
